@@ -1,0 +1,47 @@
+library(ggforce)
+library(viridis)
+clus <- read.csv(file = "completekmc.csv", header = TRUE)
+clus$SUPERCLUS <- as.factor(clus$SUPERCLUS)
+clus$ClusterNumber <- as.factor(clus$ClusterNumber)
+clus$Season <- as.factor(clus$Season)
+clus$LOW <- as.factor(clus$LOW)
+
+sc.pca <- princomp(clus[,5:29])
+sc.df <- as.data.frame(sc.pca[["scores"]])
+labels <- clus[,1:4]
+sc <- cbind(sc.df, labels)
+
+
+clusp <- ggplot(sc) + 
+  geom_point(aes(x=Comp.1, y=Comp.3, 
+                 color = LOW), 
+             size=1.5, 
+             show.legend = FALSE) +
+  xlab("First Principal Component (Primarily Seasonal)") +
+  ylab("Second Principal Component (Primarily Perennial)") +
+  theme(axis.title = element_text(size = 20),
+        axis.text=element_blank(),
+        axis.ticks = element_blank(),
+        plot.tag = element_text())
+        
+clusp <- ggplot(sc) + 
+  geom_point(aes(x=Comp.1, y=Comp.3, 
+                 color = ClusterNumber), 
+             size=1.5, 
+             show.legend = FALSE) +
+  geom_mark_ellipse(aes(x = Comp.1, y = Comp.3, 
+                        fill = ClusterNumber, 
+                        label = Season),
+                    colour = "black",
+                    con.cap = 0,
+                    show.legend = FALSE) +
+  scale_color_viridis(begin = 0.1,
+                      end = 0.9,
+                      discrete = TRUE,
+                      option = "A") +
+  xlab("First Principal Component (Primarily Seasonal)") +
+  ylab("Second Principal Component (Primarily Perennial)") +
+  theme(axis.title = element_text(size = 20),
+        axis.text=element_blank(),
+        axis.ticks = element_blank(),
+        plot.tag = element_text())
