@@ -12,8 +12,8 @@ labels <- clus[,1:4]
 sc <- cbind(sc.df, labels)
 
 
-clusp <- ggplot(sc) + 
-  geom_point(aes(x=Comp.1, y=Comp.3, 
+clusp1 <- ggplot(sc) + 
+  geom_point(aes(x=Comp.1, y=Comp.2, 
                  color = LOW), 
              size=1.5, 
              show.legend = FALSE) +
@@ -24,12 +24,12 @@ clusp <- ggplot(sc) +
         axis.ticks = element_blank(),
         plot.tag = element_text())
         
-clusp <- ggplot(sc) + 
-  geom_point(aes(x=Comp.1, y=Comp.3, 
+clusp2 <- ggplot(sc) + 
+  geom_point(aes(x=Comp.1, y=Comp.2, 
                  color = ClusterNumber), 
              size=1.5, 
              show.legend = FALSE) +
-  geom_mark_ellipse(aes(x = Comp.1, y = Comp.3, 
+  geom_mark_ellipse(aes(x = Comp.1, y = Comp.2, 
                         fill = ClusterNumber, 
                         label = Season),
                     colour = "black",
@@ -41,6 +41,31 @@ clusp <- ggplot(sc) +
                       option = "A") +
   xlab("First Principal Component (Primarily Seasonal)") +
   ylab("Second Principal Component (Primarily Perennial)") +
+  theme(axis.title = element_text(size = 20),
+        axis.text=element_blank(),
+        axis.ticks = element_blank(),
+        plot.tag = element_text())
+  
+  
+  
+ggplot(sc) + 
+  geom_point(aes(x=Comp.1, y=Comp.2, 
+                 color = SUPERCLUS), 
+             size=1.5, 
+             show.legend = FALSE) +
+  geom_mark_ellipse(aes(x = Comp.1, y = Comp.2, 
+                        fill = SUPERCLUS),
+                    colour = "black",
+                    con.cap = 0,
+                    show.legend = FALSE) +
+  scale_color_viridis(begin = 0.1,
+                      end = 0.9,
+                      discrete = TRUE,
+                      option = "A") +
+  xlab("First Principal Component (Primarily Seasonal)") +
+  ylab("Second Principal Component (Primarily Perennial)") +
+  scale_x_continuous(limits = c(-15, 150)) +
+  scale_y_continuous(limits = c(-90, 125)) +
   theme(axis.title = element_text(size = 20),
         axis.text=element_blank(),
         axis.ticks = element_blank(),
