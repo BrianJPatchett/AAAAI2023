@@ -1,4 +1,18 @@
-corr <- read.csv(file = "clustercorr.csv", header = TRUE)
-corr <- as.matrix(corr)
-M <- cor(corr)
+library(dplyr)
+
+data_raw <- read.csv(file = "completekmc.csv", header = TRUE)
+data_raw <- data_raw[-c(1:3)]
+data_raw <- na.omit(data_raw)
+
+df2 <- data_raw %>% group_by(ClusterNumber) %>% 
+  summarise(across(everything(), mean))  %>%
+  as.data.frame() %>%
+  t()
+df2 <- df2[-1,]
+
+varname <- c('Cluster')
+n <- 10 
+colnames(df2)[1:ncol(df2)] <- unlist(mapply(function(x,y) paste(x, seq(1,y), sep="_"), varname, n))
+
+M <- cor(df2)
 heatmap(M, hclustfun = function(d) hclust(d, method = "average"))
