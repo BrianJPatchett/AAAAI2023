@@ -13,8 +13,18 @@ grViz("# graph statement
        width = 1.3,
        color = grey,
        style = filled]
+  One, Two, Three, Four, Five, Six
+       
+  # Nodes (colors)
+  ################
+  node [shape = oval,           
+       fixedsize = false,
+       width = 1.3,
+       color = red,
+       style = filled]
+  Seven
   
-  One   [label = 'Create database of region 1, 25 aeroallergen specific IgE panel'] 
+  One   [label = 'Create database of Us NE region 1, ImmunoCAP® 25 aeroallergen specific IgE panel'] 
   Two [label = 'Cluster analysis with mixture models'] 
   Three  [label = 'How do clusters predict...'] 
   Four [label = 'PFT data']
