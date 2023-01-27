@@ -1,8 +1,9 @@
 library(DiagrammeR)
-grViz("# graph statement
+grViz("digraph {
+  # graph statement
   #################
   graph [layout = dot,
-         rankdir = TB,            # layout top-to-bottom
+         rankdir = TB,    
          fontsize = 10]
   
 
