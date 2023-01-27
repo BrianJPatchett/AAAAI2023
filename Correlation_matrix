@@ -1,0 +1,4 @@
+corr <- read.csv(file = "clustercorr.csv", header = TRUE)
+corr <- as.matrix(corr)
+M <- cor(corr)
+heatmap(M, hclustfun = function(d) hclust(d, method = "average"))
