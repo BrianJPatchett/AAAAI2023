@@ -1,18 +1,18 @@
 library(dplyr)
 
 data_raw <- read.csv(file = "completekmc.csv", header = TRUE)
-data_raw <- data_raw[-c(1:3)]
-data_raw <- na.omit(data_raw)
+allergy_data <- data_raw[-c(1:3)]
+allergy_clean <- na.omit(allergy_data)
 
-df2 <- data_raw %>% group_by(ClusterNumber) %>% 
+average_of_Cluster <- allergy_clean %>% group_by(ClusterNumber) %>% 
   summarise(across(everything(), mean))  %>%
   as.data.frame() %>%
   t()
-df2 <- df2[-1,]
+average_of_Cluster_two <- average_of_Cluster[-1,]
 
 varname <- c('Cluster')
 n <- 10 
-colnames(df2)[1:ncol(df2)] <- unlist(mapply(function(x,y) paste(x, seq(1,y), sep="_"), varname, n))
+colnames(average_of_Cluster_two)[1:ncol(df2)] <- unlist(mapply(function(x,y) paste(x, seq(1,y), sep="_"), varname, n))
 
-M <- cor(df2)
-heatmap(M, hclustfun = function(d) hclust(d, method = "average"))
+correlation <- cor(average_of_Cluster_two)
+heatmap(correlation, hclustfun = function(d) hclust(d, method = "average"))
