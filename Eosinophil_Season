@@ -2,7 +2,7 @@ library(ggpubr)
 data <- read.csv(file = "eosdatabase.csv", header = TRUE)
 my_comparisons <- list( c("Seasonal", "Low APS"), c("Low APS", "Perennial"))
 
-p <- ggboxplot(data, y="EOS", x="APS_CLUST",
+ggboxplot(data, y="EOS", x="APS_CLUST",
                facet.by = "Season", short.panel.labs = FALSE) + 
   stat_compare_means(comparisons = my_comparisons, label = "p.signif") +
   xlab("APS Supercluster") +
