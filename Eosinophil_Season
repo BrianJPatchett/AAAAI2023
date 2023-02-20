@@ -2,8 +2,13 @@ library(ggpubr)
 data <- read.csv(file = "eosdatabase.csv", header = TRUE)
 my_comparisons <- list( c("Seasonal", "Low APS"), c("Low APS", "Perennial"))
 
-ggboxplot(data, y="EOS", x="APS_CLUST",
-               facet.by = "Season", short.panel.labs = FALSE) + 
+ggboxplot(data, y="EOS", x="APS_Clust",
+          facet.by = "Season", panel.labs = list(Season = c("Winter", "Spring", "Summer", "Autumn")),
+          short.panel.labs = FALSE,
+          add = "mean",
+          add.params = list(color = "red")) + 
   stat_compare_means(comparisons = my_comparisons, label = "p.signif") +
+  scale_y_continuous(trans = "log10") +
   xlab("APS Supercluster") +
   ylab("Eosinophil Count")
+
